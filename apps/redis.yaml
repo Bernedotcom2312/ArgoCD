@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/Bernedotcom2312/ArgoCD
     targetRevision: main
-    path: nginx-demo-as
+    path: nginx-demo
   destination:
     server: https://kubernetes.default.svc
     namespace: demo
