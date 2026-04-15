@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nginx-envs
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+            namespace: nginx-dev
+            cluster: https://kubernetes.default.svc
+          - env: staging
+            namespace: nginx-staging
+            cluster: https://kubernetes.default.svc
+          - env: production
+            namespace: nginx-production
+            cluster: https://prod-cluster.example.com
+  template:
+    metadata:
+      name: "nginx-{{env}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Bernedotcom2312/ArgoCD
+        targetRevision: main
+        path: "nginx-demo/overlays/{{env}}"
+      destination:
+        server: "{{cluster}}"
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
