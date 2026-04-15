@@ -55,3 +55,8 @@ kubectl delete secret argocd-initial-admin-secret -n argocd
 kubectl apply -n argocd \
   -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
 ```
+
+## Apply RBAC rules
+```
+kubectl apply -f argocd-rbac-cm.yaml -n argocd
+```
