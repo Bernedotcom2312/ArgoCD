@@ -3,6 +3,7 @@
 This repository contains a simple ArgoCD demo with a root application and a child application for deploying an Nginx server.
 
 # ArgoCD installation:
+
 ```
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
@@ -14,11 +15,13 @@ helm install argocd argo/argo-cd \
 ```
 
 ## Check ArgoCD server is running:
+
 ```
 kubectl get pods -n argocd
 ```
 
 ### Access ArgoCD UI:
+
 ```
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
@@ -26,6 +29,7 @@ Then open http://localhost:8080 in your browser.
 
 
 ### Retrieve ArgoCD initial admin password:
+
 ```
 kubectl get secret argocd-initial-admin-secret \
   -n argocd \
@@ -33,6 +37,7 @@ kubectl get secret argocd-initial-admin-secret \
 ```
 
 ### Login with CLI
+
 ```
 argocd login localhost:8080 \
   --username admin \
@@ -41,6 +46,7 @@ argocd login localhost:8080 \
 ```
 
 ### Change initial admin password:
+
 ```
 argocd account update-password \
   --current-password <oldpassword> \
@@ -57,6 +63,7 @@ kubectl apply -n argocd \
 ```
 
 ## Apply RBAC rules
+
 ```
 kubectl apply -f argocd-rbac-cm.yaml -n argocd
 ```
