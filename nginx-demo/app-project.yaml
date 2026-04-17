@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: equipe-a
+  namespace: argocd
+spec:
+  description: "Projet de l'équipe A — microservices e-commerce"
+
+  sourceRepos:
+    - https://github.com/Bernedotcom2312/ArgoCD
+
+  destinations:
+    - namespace: equipe-a-dev
+      server: https://kubernetes.default.svc
+    - namespace: equipe-a-staging
+      server: https://kubernetes.default.svc
+    - namespace: equipe-a-prod
+      server: https://prod-cluster.example.com
+
+  clusterResourceWhitelist: []
+
+  namespaceResourceWhitelist:
+    - group: apps
+      kind: Deployment
+    - group: apps
+      kind: StatefulSet
+    - group: ""
+      kind: Service
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: Secret  
+
+  syncWindows:
+    - kind: allow
+      schedule: "0 8 * * 1-5"    
+      duration: 10h
+      applications:
+        - "*"
