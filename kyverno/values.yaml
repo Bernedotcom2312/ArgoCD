@@ -1,0 +1,10 @@
+kyverno:
+  config:
+    preserve: false
+  cleanupController:
+    rbac:
+      clusterRole:
+        extraResources:
+          - apiGroups: [""]
+            resources: [pods]
+            verbs: [get, list, watch, delete]
