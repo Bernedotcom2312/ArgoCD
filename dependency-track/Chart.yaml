@@ -1,0 +1,9 @@
+apiVersion: v2
+name: dependency-track
+description: Wrapper Helm pour Dependency-Track
+type: application
+version: 1.0.0
+dependencies:
+  - name: dependency-track
+    version: "0.44.0"
+    repository: https://dependencytrack.github.io/helm-charts/
