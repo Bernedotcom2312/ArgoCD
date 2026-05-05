@@ -1,24 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kyverno
+  name: dependency-track
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
-    argocd.argoproj.io/compare-options: >-
-      ServerSideDiff=true,IncludeMutationWebhook=true
 spec:
-  project: infra
+  project: default
   source:
     repoURL: https://github.com/Bernedotcom2312/ArgoCD
     targetRevision: main
-    path: kyverno
+    path: dependency-track
     helm:
       valueFiles:
         - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: kyverno
+    namespace: dependency-track
   syncPolicy:
     automated:
       prune: true
